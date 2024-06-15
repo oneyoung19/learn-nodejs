@@ -4,5 +4,8 @@
   "main": "index.js",
   "repository": "git@github.com:oneyoung19/learn-nodejs.git",
   "author": "oneyoung19",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "uuid": "^10.0.0"
+  }
 }
