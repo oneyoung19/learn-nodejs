@@ -1,4 +1,8 @@
-## Windows vs. POSIX
+---
+title: 34.Path
+---
+
+## 1.Windows vs. POSIX
 
 首先，需要明确的一点是，`Node.js` 是**跨平台**的，它可以运行在 `Windows`、`Linux`、`macOS` 等操作系统上。
 
@@ -34,7 +38,7 @@ path.basename('/temp/myfile.html')
 
 但是，`Windows` 和 `POSIX` 系统在路径表示和分隔符上存在差异，因此 `Node.js` 提供了 `path.win32` 和 `path.posix` 子模块，用于处理 `Windows` 风格的路径和 `POSIX` 风格的路径。
 
-## path.win32
+## 2.path.win32
 
 **当在 `POSIX` 系统上操作 `Windows` 格式的文件时，可以利用 `path.win32` 以使用 `Windows` 文件规范来解析目标。**
 
@@ -46,13 +50,13 @@ path.basename('/temp/myfile.html')
 
 通过使用 `path.win32` 模块，你可以确保在 `Windows` 操作系统上正确处理和操作文件路径，而不会受到类 `UNIX` 操作系统路径约定的影响。它提供了与 `Windows` 操作系统相关的路径处理功能，使你能够编写跨平台的代码，同时确保与 `Windows` 操作系统的兼容性。
 
-## path.posix
+## 3.path.posix
 
 **当在 `Windows` 系统上操作 `POSIX` 格式的文件时，可以利用 `path.posix` 以使用 `POSIX` 文件规范来解析目标。**
 
 该方式与 `path.win32` 的目的一致。
 
-## path.delimiter
+## 4.path.delimiter
 
 `path.delimiter` 属性提供了平台特定的**路径分隔符**。
 
@@ -81,7 +85,7 @@ process.env.PATH.split(path.delimiter)
 // Returns: ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\node\']
 ```
 
-## path.sep
+## 5.path.sep
 
 `path.sep` 属性提供了平台特定的**路径片段分隔符**。
 
@@ -106,7 +110,7 @@ process.env.PATH.split(path.delimiter)
 // Returns: ['foo', 'bar', 'baz']
 ```
 
-## path.dirname(path)
+## 6.path.dirname(path)
 
 `path.dirname` 方法返回一个路径的目录名，类似于 `Unix` 的 `dirname` 命令。
 
@@ -115,7 +119,7 @@ path.dirname('/foo/bar/baz/asdf/quux')
 // Returns: '/foo/bar/baz/asdf'
 ```
 
-## path.basename(path[, suffix])
+## 7.path.basename(path[, suffix])
 
 `path.basename()` 方法返回**路径的最后一部分**，类似于 `Unix` 的 `basename` 命令。它会忽略末尾的目录分隔符。
 
@@ -152,7 +156,7 @@ path.win32.basename('C:\\temp\\myfile.HTML', '.html')
 // Returns: 'myfile.HTML'
 ```
 
-## path.extname(path)
+## 8.path.extname(path)
 
 `path.extname` 方法返回 `path` 的**扩展名**，从最后一次出现 `.`（句点）字符到 `path` 最后一部分的字符串结束。
 
@@ -178,7 +182,7 @@ path.extname('.index.md')
 // Returns: '.md'
 ```
 
-## path.parse(path)
+## 9.path.parse(path)
 
 `path.parse()` 方法返回一个对象，对象的属性表示 `path` 的元素。
 
@@ -194,7 +198,7 @@ path.parse('/home/user/dir/file.txt')
 // }
 ```
 
-## path.format(pathObject)
+## 10.path.format(pathObject)
 
 `path.format()` 方法从对象返回路径字符串。 与 `path.parse()` 相反。
 
@@ -207,7 +211,7 @@ path.format({
 // Returns: '/home/user/dir/file.txt'
 ```
 
-## path.isAbsolute(path)
+## 11.path.isAbsolute(path)
 
 `path.isAbsolute()` 方法检测 `path` 是否为绝对路径。
 
@@ -252,7 +256,7 @@ path.isAbsolute('.')
 // Returns: false
 ```
 
-## path.normalize(path)
+## 12.path.normalize(path)
 
 `path.normalize()` 方法规范化给定的 `path`，解析 `..` 和 `.` 片段。
 
@@ -275,7 +279,7 @@ path.normalize('/foo/bar/baz/asdf/quux/')
 ```
 
 
-## path.join([...paths])
+## 13.path.join([...paths])
 
 `path.join()` 方法使用平台特定的分隔符把全部给定的 `path` 片段连接到一起，并**规范化**生成的路径。
 
@@ -292,7 +296,7 @@ path.join('foo', {}, 'bar')
 // Throws 'TypeError: Path must be a string. Received {}'
 ```
 
-## path.resolve([...paths])
+## 14.path.resolve([...paths])
 
 `path.resolve()` 方法将路径或路径片段的序列**解析为绝对路径**。
 
@@ -314,7 +318,7 @@ path.resolve('foo/bar')
 // Returns: '/home/myself/node/foo/bar'
 ```
 
-## path.relative(from, to)
+## 15.path.relative(from, to)
 
 `path.relative()` 方法根据当前工作目录返回 `from` 到 `to` 的相对路径。
 
@@ -328,7 +332,7 @@ path.relative('/data/orandea/test/aaa', '/data/orandea/impl/bbb')
 // Returns: '../../impl/bbb'
 ```
 
-## path.toNamespacedPath(path)
+## 16.path.toNamespacedPath(path)
 
 `path.toNamespacedPath()` 方法以平台特定的方式返回路径的等效名称空间路径。
 
