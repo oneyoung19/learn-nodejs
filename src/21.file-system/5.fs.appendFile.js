@@ -1,5 +1,6 @@
 /*
-fs.appendFile()向目标文件中追加文本内容 
+fs.appendFileSync(path, data[,options])
+向目标文件中追加文本内容 
 如果目标文件不存在的话 会自动创建
 */
 const path = require('node:path')
