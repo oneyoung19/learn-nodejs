@@ -10,6 +10,7 @@
     "start": "vite"
   },
   "dependencies": {
+    "sandpack-vue3": "^3.1.11",
     "uuid": "^10.0.0",
     "vue": "^3.4.31"
   },
