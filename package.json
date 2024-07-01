@@ -5,7 +5,6 @@
   "repository": "git@github.com:oneyoung19/learn-nodejs.git",
   "author": "oneyoung19",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "start": "vite"
   },
