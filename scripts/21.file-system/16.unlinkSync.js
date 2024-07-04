@@ -1,4 +1,6 @@
 /*
+fs.unlinkSync(path)
+
 unlinkSync 用于删除指定路径的文件或符号链接。
 
 删除文件：unlinkSync 用于从文件系统中删除指定路径的文件。
