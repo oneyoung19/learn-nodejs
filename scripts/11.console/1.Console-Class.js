@@ -1,3 +1,20 @@
+/*
+new Console(options)
+- stdout
+- stderr
+- ignoreErrors
+- colorMode
+- inspectOptions
+- groupIndentation
+
+The global `console` is a special `Console` whose output is sent to `process.stdout` and `process.stderr`。等同于：
+
+new Console({
+  stdout: process.stdout,
+  stderr: process.stderr
+})
+*/
+
 const fs = require('node:fs')
 const path = require('node:path')
 const console = require('node:console')
