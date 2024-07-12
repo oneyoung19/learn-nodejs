@@ -2,6 +2,9 @@
 console.error([data][,...args])
 
 打印 `stderr` 至控制台
+
+其他形式：
+console.warn()
 */
 
 const code = 5
