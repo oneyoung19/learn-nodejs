@@ -46,3 +46,9 @@ stream.on('end',() => {
 stream.on('close',() => {
   console.log('读取关闭')
 })
+
+// 读取暂停
+// stream.pause()
+
+// 读取恢复
+// stream.resume()
