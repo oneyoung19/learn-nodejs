@@ -23,7 +23,7 @@ const Transform = Stream.Transform
 
 2. pipe()
 
-3. zip压缩
+3. zip压缩（本例中实际代码同Transform）
 
 4. stream数据积压
 
