@@ -33,3 +33,18 @@ Transform 流：
 - zlib.createInflate(): 创建一个 Inflate 解压流。
 
 */
+
+const path = require('path')
+const fs = require('fs')
+const zlib = require('zlib')
+
+// 同步压缩
+const buffer = fs.readFileSync(path.resolve(__dirname, './temp/input.txt'))
+const gzipBuffer = zlib.gzipSync(buffer)
+fs.writeFileSync(path.resolve(__dirname, './temp/input.txt.gz'), gzipBuffer)
+
+// 同步解压缩
+const gunzipBuffer = fs.readFileSync(path.resolve(__dirname, './temp/input.txt.gz'))
+const uncompressedBuffer = zlib.gunzipSync(gunzipBuffer)
+fs.writeFileSync(path.resolve(__dirname, './temp/uncompressed.txt'), uncompressedBuffer)
+
