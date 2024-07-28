@@ -24,3 +24,16 @@ myURL.pathname = '/new/path'
 myURL.search = '?new=query'
 console.log(myURL.href)  // 'https://example.com:8080/new/path?new=query#hash'
 
+// 相对url
+const base = new URL('https://example.com/path/')
+const relative = new URL('subpath', base)
+console.log(relative.href) // 'https://example.com/path/subpath'
+
+// 序列化 URL 对象为字符串
+const serializedURL = myURL.toString()
+console.log(serializedURL)
+
+// 反序列化字符串为 URL 对象
+const parsedURL = new URL(serializedURL)
+console.log(parsedURL.hostname)
+

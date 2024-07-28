@@ -7,7 +7,7 @@
 [WHATWG URL Standard](https://url.spec.whatwg.org/)
 
 */
-
+// const { URL } = require('node:url')
 const newUrl =
   new URL('https://user:pass@sub.example.com:8080/p/a/t/h?query=string#hash')
 
