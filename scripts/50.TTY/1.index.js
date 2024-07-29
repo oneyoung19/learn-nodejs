@@ -7,9 +7,10 @@ TTY 流通常与终端相关，用于处理命令行输入和输出。
 
 tty 模块包含以下几个重要的类和方法：
 
-tty.ReadStream：表示一个 TTY 输入流，例如 process.stdin。
-tty.WriteStream：表示一个 TTY 输出流，例如 process.stdout 和 process.stderr。
+tty.ReadStream：表示一个 TTY 输入流（tty.ReadStream），例如 process.stdin。
+tty.WriteStream：表示一个 TTY 输出流（tty.WriteStream），例如 process.stdout 和 process.stderr。
 tty.isatty(fd)：检查给定的文件描述符 fd 是否关联到一个 TTY 设备。
+
 */
 const tty = require('tty')
 
