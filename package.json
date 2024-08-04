@@ -9,6 +9,8 @@
     "start": "vite"
   },
   "dependencies": {
+    "commonjs-a": "./packages/commonjs-a/",
+    "esm-a": "./packages/esm-a",
     "sandpack-vue3": "^3.1.11",
     "uuid": "^10.0.0",
     "vue": "^3.4.31"
