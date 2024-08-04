@@ -10,4 +10,7 @@
 
 3. Strings passed in as an argument to --eval or --print, or piped to node via STDIN, with the flag --input-type=commonjs.
   字符串作为参数传入--eval或--print ，或通过STDIN通过管道传输到node ，并带有标志--input-type=commonjs 。
+
+以.cjs结尾的文件始终作为CommonJS加载，无论最近的父package.json是什么。
+
 */
