@@ -7,5 +7,8 @@
   "exports": {
     ".": "./index.js",
     "./lib": "./lib/index.js"
+  },
+  "imports": {
+    "#lib": "./lib/index.js"
   }
 }
