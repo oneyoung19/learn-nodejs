@@ -27,5 +27,14 @@
 
 */
 
-const message = require('esm-a')
+// const message = require('esm-a')
+// console.log(message)
+
+// const libMessage = require('esm-a/lib')
+// console.log(libMessage)
+
+import message from 'esm-a'
 console.log(message)
+
+import libMessage from 'esm-a/lib'
+console.log(libMessage)

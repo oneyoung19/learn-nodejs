@@ -2,5 +2,10 @@
   "name": "esm-a",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": "./index.js",
+    "./lib": "./lib/index.js"
+  }
 }
