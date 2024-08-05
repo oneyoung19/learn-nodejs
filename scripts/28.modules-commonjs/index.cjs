@@ -15,3 +15,9 @@ console.log(require.resolve('vite'))
 console.log(__dirname)
 
 console.log(__filename)
+
+// Module对象表示 Node.js 进程启动时加载的脚本
+console.log(module)
+
+const testResult = require('./4.module.cjs')
+
