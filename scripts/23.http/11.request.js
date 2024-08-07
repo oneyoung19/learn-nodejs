@@ -3,6 +3,14 @@ http.request 是 Node.js 中用于发起 HTTP 请求的一个方法。
 
 适用于需要发送各种 HTTP 方法（如 POST、PUT、DELETE 等）以及需要自定义请求头和其他参数的场景。
 
+之所以使用res.on('data')监听：
+
+在 Node.js 中，HTTP 响应是以数据流（stream）的形式传输的。
+
+数据流的传输方式意味着响应内容并不是一次性到达，而是以小块（chunk）的形式逐步传输。
+
+当服务器向客户端发送数据时，这些数据会被拆分成一个个的块，data 事件在每个块到达时触发。
+
 */
 
 const http = require('http')
