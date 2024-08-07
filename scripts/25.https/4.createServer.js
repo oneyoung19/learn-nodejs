@@ -9,8 +9,8 @@ const path = require('node:path')
 
 // 读取证书和私钥文件
 const options = {
-  key: fs.readFileSync(path.resolve(__dirname, './key-cert/private-key.pem'), 'utf8'),
-  cert: fs.readFileSync(path.resolve(__dirname, './key-cert/csr.pem'), 'utf8')
+  key: fs.readFileSync(path.resolve(__dirname, './key-cert/key.pem'), 'utf8'),
+  cert: fs.readFileSync(path.resolve(__dirname, './key-cert/cert.pem'), 'utf8')
 }
 
 // 创建 HTTPS 服务器
@@ -22,4 +22,5 @@ const server = https.createServer(options, (req, res) => {
 // 监听端口
 server.listen(443, () => {
   console.log('HTTPS server is running on port 443')
+  console.log('https://localhost:443')
 })
