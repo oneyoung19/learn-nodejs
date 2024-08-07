@@ -5,11 +5,12 @@ options 对象：包含 key 和 cert 属性，这些属性分别是你的私钥�
 */
 const https = require('https')
 const fs = require('fs')
+const path = require('node:path')
 
 // 读取证书和私钥文件
 const options = {
-  key: fs.readFileSync('path/to/private-key.pem'),
-  cert: fs.readFileSync('path/to/certificate.pem')
+  key: fs.readFileSync(path.resolve(__dirname, './key-cert/private-key.pem'), 'utf8'),
+  cert: fs.readFileSync(path.resolve(__dirname, './key-cert/csr.pem'), 'utf8')
 }
 
 // 创建 HTTPS 服务器
