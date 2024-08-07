@@ -9,10 +9,14 @@ const http = require('http')
 const server = http.createServer((req, res) => {
   // req 是 http.IncomingMessage 的实例，表示客户端的请求
   // res 是 http.ServerResponse 的实例，用于向客户端发送响应
-
+  console.log('createServer', req.url)
   res.statusCode = 200 // 设置响应状态码
   res.setHeader('Content-Type', 'text/plain') // 设置响应头
   res.end('Hello, World!\n') // 结束响应并发送内容
+})
+
+server.on('request', (req, res) => {
+  console.log('request', req.url)
 })
 
 server.listen(3000, () => {
