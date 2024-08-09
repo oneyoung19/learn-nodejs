@@ -1,5 +1,8 @@
 /*
 
+dns.lookup 用于将域名解析为 IP 地址。它类似于操作系统级别的 DNS 解析函数，通常会同时查找 A（IPv4）和 AAAA（IPv6）记录。
+dns.resolve 用于查询特定类型的 DNS 记录，如 A、AAAA、MX、TXT 等。它是直接与 DNS 服务器通信进行查询。
+
 1. dns.resolve(hostname[, rrtype], callback)
 2. dns.resolve4(hostname, callback)
 3. dns.resolve6(hostname, callback)
@@ -63,3 +66,49 @@
 示例: example.com -> order: 100, preference: 10, flags: "u", service: "E2U+sip", regexp: "!^.*$!sip:info@example.com!"
 
 */
+
+const dns = require('node:dns')
+
+dns.resolve('baidu.com', (err, address) => {
+  console.log('resolve', address)
+})
+
+dns.resolve4('baidu.com', (err, address) => {
+  console.log('resolve4', address)
+})
+
+dns.resolve6('www.baidu.com', (err, address) => {
+  console.log('resolve6', address)
+})
+
+dns.resolveMx('baidu.com', (err, address) => {
+  console.log('resolveMx', address)
+})
+
+dns.resolveTxt('baidu.com', (err, address) => {
+  console.log('resolveTxt', address)
+})
+
+dns.resolveSrv('www.baidu.com', (err, address) => {
+  console.log('resolveSrv', address)
+})
+
+dns.resolvePtr('baidu.com', (err, address) => {
+  console.log('resolvePtr', address)
+})
+
+dns.resolveNs('baidu.com', (err, address) => {
+  console.log('resolveNs', address)
+})
+
+dns.resolveCname('www.baidu.com', (err, address) => {
+  console.log('resolveCname', address)
+})
+
+dns.resolveSoa('baidu.com', (err, address) => {
+  console.log('resolveSoa', address)
+})
+
+dns.resolveNaptr('baidu.com', (err, address) => {
+  console.log('resolveNaptr', address)
+})
