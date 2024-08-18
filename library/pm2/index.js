@@ -3,7 +3,9 @@ https://github.com/Unitech/pm2
 
 https://pm2.keymetrics.io/docs/usage/quick-start/
 
-PM2 是一个流行的 Node.js 进程管理工具，用于管理和监控 Node.js 应用程序。它提供了一个强大的命令行工具，能够简化应用程序的启动、停止、重启和监控。
+PM2 是一个流行的 Node.js 进程管理工具，用于管理和监控 Node.js 应用程序。
+
+它提供了一个强大的命令行工具，能够简化应用程序的启动、停止、重启和监控。
 
 PM2 的主要功能包括：
 
