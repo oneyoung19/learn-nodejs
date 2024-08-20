@@ -1,13 +1,29 @@
+/*
+官方文档：https://nodejs.org/api/async_hooks.html
+
+{
+  AsyncLocalStorage: [class AsyncLocalStorage],
+  createHook: [Function: createHook],
+  executionAsyncId: [Function: executionAsyncId],
+  triggerAsyncId: [Function: triggerAsyncId],
+  executionAsyncResource: [Function: executionAsyncResource],
+  asyncWrapProviders: [Object: null prototype] {
+  },
+  AsyncResource: [class AsyncResource]
+}
+
+*/
 const asyncHooks = require('async_hooks')
 const fs = require('fs')
 
 function log(...args) {
   fs.writeSync(1, args.join(' ') + '\n')
 }
+log(asyncHooks.executionAsyncId())
 
 asyncHooks.createHook({
   init(asyncId, type, triggerAsyncId, resource) {
-    log('Init: ', `${type}(asyncId=${asyncId}, parentAsyncId: ${triggerAsyncId})`)
+    log('Init: ', `${type}(asyncId=${asyncId}, parentAsyncId: ${triggerAsyncId}), resource: ${resource}`)
   },
   before(asyncId) {
     log('Before: ', asyncId)
