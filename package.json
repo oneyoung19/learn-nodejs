@@ -6,7 +6,8 @@
   "author": "oneyoung19",
   "license": "MIT",
   "scripts": {
-    "start": "vite"
+    "start": "vite",
+    "server:vanilla": "node playground/1.vanilla/index.js"
   },
   "dependencies": {
     "commonjs-a": "file:packages/commonjs-a",
