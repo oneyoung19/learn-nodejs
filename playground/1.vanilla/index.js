@@ -16,7 +16,10 @@ console.log(staticFiles)
 // console.log(getAllFilePaths(staticPath))
 
 const server = http.createServer((req, res) => {
-  const { url } = req
+  let { url } = req
+  if (url === '/') {
+    url = '/home'
+  }
   if (staticFiles.includes(url)) {
     res.end(fs.readFileSync(path.resolve(staticPath, `.${url}`)))
     return
