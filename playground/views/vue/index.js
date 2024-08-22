@@ -12,13 +12,8 @@ const context = {
   meta: '<meta name="description" content="Vue.js 服务端渲染"><meta name="keywords" content="Vue,SSR">'
 }
 
-/*
-模板中的原生指令和方法是支持的 但在客户端无反应
-
-自定义指令，也没有生效
-*/
-const server = http.createServer((req, res) => {
-  const { url } = req
+const createApp = async (context) => {
+  const { url } = context
   const app = new Vue({
     data: {
       url,
@@ -42,11 +37,9 @@ const server = http.createServer((req, res) => {
       }
     }
   })
-  renderer.renderToString(app, context).then(html => {
-    res.end(html)
-  })
-})
+  return await renderer.renderToString(app, context)
+}
 
-server.listen(8000, () => {
-  console.log('server is running at http://localhost:8000')
-})
+module.exports = {
+  createApp
+}

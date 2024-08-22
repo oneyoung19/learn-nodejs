@@ -1,21 +1,15 @@
 const http = require('node:http')
 const path = require('node:path')
 const fs = require('node:fs')
-// const { getAllFilePaths } = require('../utils')
 
 const { globSync } = require('glob')
-const { getRouteTemplate } = require('../views/template/index')
+// const { getRouteTemplate } = require('../views/template/index')
+const { createApp } = require('../views/vue/index')
 
 const staticPath = path.resolve(__dirname, '../static')
-
-// const staticGlob = `${staticPath}/**/*`
-// const staticFiles = fs.readdirSync(staticPath, { recursive: true })
-// const staticFiles = globSync([staticGlob], { nodir: true })
 const staticFiles = globSync(['playground/static/**/*'], { nodir: true }).map(path => path.replace(/^playground\/static/, ''))
-console.log(staticFiles)
-// console.log(getAllFilePaths(staticPath))
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   let { url } = req
   if (url === '/') {
     url = '/home'
@@ -24,7 +18,8 @@ const server = http.createServer((req, res) => {
     res.end(fs.readFileSync(path.resolve(staticPath, `.${url}`)))
     return
   }
-  const routeContent = getRouteTemplate(url.slice(1))
+  // const routeContent = getRouteTemplate(url.slice(1))
+  const routeContent = await createApp(req)
   if (routeContent) {
     res.end(routeContent)
     return
