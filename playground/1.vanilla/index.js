@@ -4,6 +4,7 @@ const fs = require('node:fs')
 // const { getAllFilePaths } = require('../utils')
 
 const { globSync } = require('glob')
+const { getRouteTemplate } = require('../views/template/index')
 
 const staticPath = path.resolve(__dirname, '../static')
 
@@ -18,6 +19,11 @@ const server = http.createServer((req, res) => {
   const { url } = req
   if (staticFiles.includes(url)) {
     res.end(fs.readFileSync(path.resolve(staticPath, `.${url}`)))
+    return
+  }
+  const routeContent = getRouteTemplate(url.slice(1))
+  if (routeContent) {
+    res.end(routeContent)
     return
   }
   res.end('Vanilla')
