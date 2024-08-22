@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "commonjs-a": "file:packages/commonjs-a",
+    "ejs": "^3.1.10",
     "esm-a": "file:packages/esm-a",
     "glob": "^11.0.0",
     "sandpack-vue3": "^3.1.11",
