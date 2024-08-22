@@ -1,0 +1,10 @@
+<p>Vanilla</p>
+<p>
+  <%= message %>
+</p>
+<button id="btn">Jump to foo</button>
+<script>
+  document.getElementById('btn').addEventListener('click', () => {
+    window.location.href = '/foo';
+  });
+</script>
