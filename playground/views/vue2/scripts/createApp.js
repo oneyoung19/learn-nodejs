@@ -4,10 +4,10 @@ const fs = require('node:fs')
 
 const Vue = require('vue')
 const renderer = require('vue-server-renderer').createRenderer({
-  template: fs.readFileSync(path.resolve(__dirname, './public/index.html'), 'utf-8')
+  template: fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8')
 })
 
-const context = {
+const config = {
   title: 'Vue SSR',
   meta: '<meta name="description" content="Vue.js 服务端渲染"><meta name="keywords" content="Vue,SSR">'
 }
@@ -37,7 +37,10 @@ const createApp = async (context) => {
       }
     }
   })
-  return await renderer.renderToString(app, context)
+  return await renderer.renderToString(app, {
+    ...config,
+    ...context
+  })
 }
 
 module.exports = {
