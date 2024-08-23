@@ -11,6 +11,9 @@ importers:
       vue:
         specifier: 2.7.16
         version: 2.7.16
+      vue-router:
+        specifier: ^3.6.5
+        version: 3.6.5(vue@2.7.16)
       vue-server-renderer:
         specifier: 2.7.16
         version: 2.7.16
@@ -146,6 +149,11 @@ packages:
     resolution: {integrity: sha512-/OaKK0xYrs3DmxRYqL/yDc+FxFUVYhDlXMhRmv3z915w2HF1tnN1omB354j8VUGO/hbRzyD6Y3sA7v7GS/ceog==}
     engines: {node: '>=4'}
 
+  vue-router@3.6.5:
+    resolution: {integrity: sha512-VYXZQLtjuvKxxcshuRAwjHnciqZVoXAjTjcqBTz4rKc8qih9g9pI3hbDjmqXaHdgL3v8pV6P8Z335XvHzESxLQ==}
+    peerDependencies:
+      vue: ^2
+
   vue-server-renderer@2.7.16:
     resolution: {integrity: sha512-U7GgR4rYmHmbs3Z2gqsasfk7JNuTsy/xrR5EMMGRLkjN8+ryDlqQq6Uu3DcmbCATAei814YOxyl0eq2HNqgXyQ==}
 
@@ -267,6 +275,10 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   to-fast-properties@2.0.0: {}
+
+  vue-router@3.6.5(vue@2.7.16):
+    dependencies:
+      vue: 2.7.16
 
   vue-server-renderer@2.7.16:
     dependencies:
