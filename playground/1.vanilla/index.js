@@ -4,7 +4,8 @@ const fs = require('node:fs')
 
 const { globSync } = require('glob')
 // const { getRouteTemplate } = require('../views/template/index')
-const { createApp } = require('../views/vue2/scripts/createApp')
+const { createApp } = require('../views/vue2/scripts/app')
+// const { createApp } = require('../views/vue2/app')
 
 const staticPath = path.resolve(__dirname, '../static')
 const staticFiles = globSync(['playground/static/**/*'], { nodir: true }).map(path => path.replace(/^playground\/static/, ''))
