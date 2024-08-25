@@ -17,7 +17,8 @@
     "glob": "^11.0.0",
     "sandpack-vue3": "^3.1.11",
     "uuid": "^10.0.0",
-    "vue": "^3.4.31"
+    "vue": "^2.7.16",
+    "vue-server-renderer": "2.7.16"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.5",
