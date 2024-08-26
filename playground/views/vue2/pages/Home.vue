@@ -6,11 +6,12 @@
 </template>
 
 <script>
-// @ is an alias to /src
 import HelloWorld from './components/HelloWorld.vue'
+import titleMixin from './mixins/title'
 
 export default {
   name: 'Home',
+  mixins: [titleMixin],
   components: {
     HelloWorld
   }

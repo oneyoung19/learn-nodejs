@@ -12,7 +12,7 @@ module.exports = merge(baseConfig, {
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, '../dist/client'),
-    filename: 'js/[name].[chunkhash].js'
+    filename: 'js/[name].[chunkhas:4].js'
   },
   plugins: [
     // 重要信息：这将 webpack 运行时分离到一个引导 chunk 中，
@@ -24,6 +24,9 @@ module.exports = merge(baseConfig, {
     // }),
     // 此插件在输出目录中
     // 生成 `vue-ssr-client-manifest.json`。
-    new VueSSRClientPlugin()
+    new VueSSRClientPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.VUE_ENV': '"client"'
+    })
   ]
 })

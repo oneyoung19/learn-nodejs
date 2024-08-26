@@ -10,11 +10,17 @@ export function createRouter () {
       {
         name: 'Home',
         path: '/',
+        meta: {
+          title: 'Home'
+        },
         component: () => import('../pages/Home.vue')
       },
       {
         name: 'About',
         path: '/about',
+        meta: {
+          title: 'About'
+        },
         component: () => import(/* webpackChunkName: "about" */ '../pages/About.vue')
       }
     ]
