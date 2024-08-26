@@ -4,10 +4,17 @@ const fs = require('node:fs')
 
 const { globSync } = require('glob')
 // const { getRouteTemplate } = require('../views/template/index')
-const { createApp } = require('../views/vue2/scripts/app')
+// const { createApp } = require('../views/vue2/scripts/app')
 // const { createApp } = require('../views/vue2/app')
-const renderer = require('vue-server-renderer').createRenderer({
-  template: fs.readFileSync(path.resolve(__dirname, '../views/vue2/public/index.html'), 'utf-8')
+// const renderer = require('vue-server-renderer').createRenderer({
+//   template: fs.readFileSync(path.resolve(__dirname, '../views/vue2/public/index.html'), 'utf-8')
+// })
+const serverBundle = require(path.resolve(__dirname, '../views/vue2/dist/server/vue-ssr-server-bundle.json'))
+const clientManifest = require(path.resolve(__dirname, '../views/vue2/dist/client/vue-ssr-client-manifest.json'))
+const renderer = require('vue-server-renderer').createBundleRenderer(serverBundle, {
+  runInNewContext: false,
+  template: fs.readFileSync(path.resolve(__dirname, '../views/vue2/public/index.html'), 'utf-8'),
+  clientManifest
 })
 
 const staticPath = path.resolve(__dirname, '../static')
@@ -28,8 +35,8 @@ const server = http.createServer(async (req, res) => {
     return
   }
   // const routeContent = getRouteTemplate(url.slice(1))
-  const app = createApp(req)
-  const routeContent = await renderer.renderToString(app, context)
+  // const app = createApp(req)
+  const routeContent = await renderer.renderToString(req)
   if (routeContent) {
     res.end(routeContent)
     return
