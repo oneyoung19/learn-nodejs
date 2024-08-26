@@ -30,10 +30,29 @@ module.exports = {
           'less-loader'
         ]
       },
+      // {
+      //   test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+      //   loader: 'url-loader',
+      //   options: {
+      //     limit: 10000,
+      //     name: '[name].[hash:4].[ext]',
+      //     outputPath: 'img'
+      //   }
+      // },
+      // {
+      //     test: /(\.(eot|ttf|woff|woff2|otf)|font)$/,
+      //     loader: 'file-loader',
+      //     options: { outputPath: 'fonts/' }
+      // },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
-        options: {}
+        options: {
+          name: '[name].[hash:4].[ext]',
+          outputPath: 'img',
+          // 设置该属性 保证图片正常解析
+          esModule: false
+        }
       }
     ]
   },
