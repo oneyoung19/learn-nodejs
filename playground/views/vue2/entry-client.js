@@ -5,8 +5,13 @@ import { createApp } from './app'
 // // 挂载到id为app的页面上
 // app.$mount('#app')
 
-const { app, router } = createApp()
+const { app, router, store } = createApp()
 
 router.onReady(() => {
   app.$mount('#app')
 })
+
+console.log('__INITIAL_STATE__', window.__INITIAL_STATE__)
+if (window.__INITIAL_STATE__) {
+  store.replaceState(window.__INITIAL_STATE__)
+}

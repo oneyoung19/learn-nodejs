@@ -39,7 +39,7 @@ const server = http.createServer(async (req, res) => {
   // const app = createApp(req)
   const context = { url: req.url, ...config }
   renderer.renderToString(context, (err, html) => {
-    console.log(err, html)
+    console.log('err', err)
     if (err) {
       if (err.code === 404) {
         res.end('Page not found')
