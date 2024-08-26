@@ -18,8 +18,8 @@ const renderer = createBundleRenderer(serverBundle, {
   clientManifest
 })
 
-// const staticPath = path.resolve(__dirname, '../../static')
-// const staticFiles = globSync(['playground/static/**/*'], { nodir: true }).map(path => path.replace(/^playground\/static/, ''))
+const staticPath = path.resolve(__dirname, './dist/client')
+const staticFiles = globSync(['dist/client/**/*'], { nodir: true }).map(path => path.replace(/^dist\/client/, ''))
 
 const config = {
   title: 'Vue SSR',
@@ -28,13 +28,13 @@ const config = {
 
 const server = http.createServer(async (req, res) => {
   let { url } = req
-  if (url === '/') {
-    url = '/home'
-  }
-  // if (staticFiles.includes(url)) {
-  //   res.end(fs.readFileSync(path.resolve(staticPath, `.${url}`)))
-  //   return
+  // if (url === '/') {
+  //   url = '/home'
   // }
+  if (staticFiles.includes(url)) {
+    res.end(fs.readFileSync(path.resolve(staticPath, `.${url}`)))
+    return
+  }
   // const routeContent = getRouteTemplate(url.slice(1))
   // const app = createApp(req)
   const context = { url: req.url, ...config }

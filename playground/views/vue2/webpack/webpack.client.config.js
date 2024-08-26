@@ -10,6 +10,7 @@ module.exports = merge(baseConfig, {
   mode: 'production',
   entry,
   output: {
+    publicPath: '/',
     path: path.resolve(__dirname, '../dist/client'),
   },
   plugins: [
