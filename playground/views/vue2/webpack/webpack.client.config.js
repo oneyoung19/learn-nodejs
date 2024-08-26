@@ -12,6 +12,7 @@ module.exports = merge(baseConfig, {
   output: {
     publicPath: '/',
     path: path.resolve(__dirname, '../dist/client'),
+    filename: 'js/[name].[chunkhash].js'
   },
   plugins: [
     // 重要信息：这将 webpack 运行时分离到一个引导 chunk 中，

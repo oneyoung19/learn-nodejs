@@ -1,4 +1,6 @@
+const path = require('node:path')
 const { VueLoaderPlugin } = require('vue-loader')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   output: {
@@ -57,6 +59,14 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, '../public/favicon.ico'),
+          to: path.resolve(__dirname, '../dist/client/favicon.ico')
+        }
+      ]
+    })
   ]
 }
