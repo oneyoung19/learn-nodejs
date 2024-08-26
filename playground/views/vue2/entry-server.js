@@ -3,9 +3,9 @@ import vueServerRenderer from 'vue-server-renderer'
 import fs from 'node:fs'
 import path from 'node:path'
 
-const renderer = vueServerRenderer.createRenderer({
-  template: fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8')
-})
+// const renderer = vueServerRenderer.createRenderer({
+//   template: fs.readFileSync(path.resolve(__dirname, '../public/index.html'), 'utf-8')
+// })
 
 export default context => {
   // 因为有可能会是异步路由钩子函数或组件，所以我们将返回一个 Promise，

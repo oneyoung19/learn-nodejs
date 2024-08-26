@@ -21,7 +21,7 @@ const renderer = createBundleRenderer(serverBundle, {
 // const staticPath = path.resolve(__dirname, '../../static')
 // const staticFiles = globSync(['playground/static/**/*'], { nodir: true }).map(path => path.replace(/^playground\/static/, ''))
 
-const context = {
+const config = {
   title: 'Vue SSR',
   meta: '<meta name="description" content="Vue.js 服务端渲染"><meta name="keywords" content="Vue,SSR">'
 }
@@ -37,7 +37,8 @@ const server = http.createServer(async (req, res) => {
   // }
   // const routeContent = getRouteTemplate(url.slice(1))
   // const app = createApp(req)
-  renderer.renderToString(req, (err, html) => {
+  const context = { url: req.url, ...config }
+  renderer.renderToString(context, (err, html) => {
     console.log(err, html)
     if (err) {
       if (err.code === 404) {
