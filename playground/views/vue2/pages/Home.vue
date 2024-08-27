@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <p class="author">{{ item.author }}</p>
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
@@ -8,6 +9,7 @@
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import titleMixin from './mixins/title'
+import mapState from 'vuex'
 
 export default {
   name: 'Home',
@@ -23,7 +25,8 @@ export default {
   computed: {
     // 从 store 的 state 对象中的获取 item。
     item () {
-      return this.$store.state.items[this.$route.query.id]
+      const item = this.$store.state.items[this.$route.query.id]
+      return item || {}
     }
   }
 }

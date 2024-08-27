@@ -1,5 +1,5 @@
 import { createApp } from './app'
-import vueServerRenderer from 'vue-server-renderer'
+// import vueServerRenderer from 'vue-server-renderer'
 import fs from 'node:fs'
 import path from 'node:path'
 
@@ -25,6 +25,7 @@ export default context => {
 
       // 对所有匹配的路由组件调用 `asyncData()`
       Promise.all(matchedComponents.map(Component => {
+        console.log('app', app)
         console.log('Component.asyncData', Component.asyncData)
         if (Component.asyncData) {
           return Component.asyncData({
