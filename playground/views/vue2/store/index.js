@@ -14,12 +14,18 @@ export function createStore () {
       fetchItem ({ commit }, id) {
         // `store.dispatch()` 会返回 Promise，
         // 以便我们能够知道数据在何时更新
-        return axios({
-          methods: 'GET',
-          url: `https://hn.algolia.com/api/v1/items/${id}`
-        }).then(item => {
-          commit('setItem', { id, item })
-        })
+        if (id) {
+          return axios({
+            methods: 'GET',
+            url: `https://hn.algolia.com/api/v1/items/${id}`
+          }).then(res => {
+            const { author } = res.data
+            console.log('author', author)
+            commit('setItem', { id, item: { author } })
+          })
+        } else {
+          return Promise.resolve('No ID')
+        }
       }
     },
     mutations: {
