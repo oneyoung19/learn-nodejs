@@ -9,16 +9,16 @@ const { globSync } = require('glob')
 // const renderer = require('vue-server-renderer').createRenderer({
 //   template: fs.readFileSync(path.resolve(__dirname, '../views/vue2/public/index.html'), 'utf-8')
 // })
-const serverBundle = require('./dist/server/vue-ssr-server-bundle.json')
-const clientManifest = require('./dist/client/vue-ssr-client-manifest.json')
+const serverBundle = require('./server/vue-ssr-server-bundle.json')
+const clientManifest = require('./client/vue-ssr-client-manifest.json')
 const { createBundleRenderer } = require('vue-server-renderer')
 const renderer = createBundleRenderer(serverBundle, {
   runInNewContext: false,
-  template: fs.readFileSync(path.resolve(__dirname, './public/index.html'), 'utf-8'),
+  template: fs.readFileSync(path.resolve(__dirname, './index.html'), 'utf-8'),
   clientManifest
 })
 
-const staticPath = path.resolve(__dirname, './dist/client')
+const staticPath = path.resolve(__dirname, './client')
 const staticFiles = globSync(['dist/client/**/*'], { nodir: true }).map(path => path.replace(/^dist\/client/, ''))
 
 const config = {
