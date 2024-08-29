@@ -1,3 +1,29 @@
+const Koa = require('koa')
+const app = new Koa()
+const port = 3000
+
+app.use(async (ctx, next) => {
+  console.log(ctx)
+  await next()
+})
+app.use(async (ctx, next) => {
+  if (ctx.path === '/' && ctx.method === 'GET') {
+    ctx.body = {
+      key: 'hello world',
+    }
+  }
+})
+
+// koa本身不支持路由
+// app.get('/', (ctx) => {
+//   ctx.body = 'Hello Koa'
+//   return
+// })
+
+app.listen(3000, () => {
+  console.log(`Example app running on http://127.0.0.1:${port}`)
+})
+
 /*
 https://koajs.com/
 
