@@ -1,17 +1,27 @@
 const Koa = require('koa')
 const app = new Koa()
+const Router = require('koa-router')
 const port = 3000
 
+const router = new Router()
+
 app.use(async (ctx, next) => {
-  console.log(ctx)
+  console.log('logging 1')
   await next()
 })
 app.use(async (ctx, next) => {
+  // 不使用koa-router的话 需要在此处手动判断path和method
   if (ctx.path === '/' && ctx.method === 'GET') {
-    ctx.body = {
-      key: 'hello world',
-    }
+    ctx.body = 'Hello World'
   }
+  await next()
+})
+// 必须调用注册router
+app.use(router.routes())
+
+router.get('/list', (ctx) => {
+  console.log('logging list')
+  ctx.body = 'Hello List'
 })
 
 // koa本身不支持路由
