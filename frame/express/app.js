@@ -5,14 +5,25 @@ const port = 3000
 
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
-app.use('/', homeRouter)
-app.use('/user', userRouter)
 
 // 静态资源托管
 app.use('/static', express.static('public'))
 
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
+
+app.use((req, res, next) => {
+  console.log('logging before')
+  next()
+  console.log('logging after')
+})
+app.use((req, res, next) => {
+  console.log('Ding')
+  next()
+})
+// 注意此处中间件 放置在上面use中间件之后，那么上述中间件才会在此处路由下执行
+app.use('/', homeRouter)
+app.use('/user', userRouter)
 
 app.get('/', (req, res) => {
   res.send('Got a GET request')
