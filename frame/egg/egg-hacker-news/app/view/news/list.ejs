@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hacker News</title>
+    <link rel="stylesheet" href="/public/css/news.css" type="text/css" />
+  </head>
+  <body>
+    <ul class="news-view view">
+      <% for( let index = 0; index < list.length; index++ ) { %>
+        <li class="item">
+          <a href="<%= list[index].url %>"><%= list[index].title %></a>
+        </li>
+      <% } %>
+    </ul>
+  </body>
+</html>
