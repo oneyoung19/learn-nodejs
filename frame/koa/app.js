@@ -4,6 +4,8 @@ const Router = require('koa-router')
 const port = 3000
 
 const router = new Router()
+const homeRouter = require('./router')
+const userRouter = require('./router/user')
 
 app.use(async (ctx, next) => {
   console.log('logging 1')
@@ -18,6 +20,8 @@ app.use(async (ctx, next) => {
 })
 // 必须调用注册router
 app.use(router.routes())
+router.use('/', homeRouter.routes())
+router.use('/user', userRouter.routes())
 
 router.get('/list', (ctx) => {
   console.log('logging list')
