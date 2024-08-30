@@ -1,6 +1,7 @@
 const Koa = require('koa')
 const Router = require('koa-router')
 const static = require('koa-static')
+const views = require('koa-views')
 
 const app = new Koa()
 const port = 3000
@@ -11,6 +12,13 @@ const userRouter = require('./router/user')
 
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
+// Must be used before any router is used
+app.use(views(__dirname + '/views', {
+  // map: {
+  //   html: 'underscore',
+  // },
+  extension: 'ejs'
+}))
 
 app.use(async (ctx, next) => {
   console.log('logging 1')
@@ -25,7 +33,7 @@ app.use(async (ctx, next) => {
 })
 // 必须调用注册router
 app.use(router.routes())
-router.use('/', homeRouter.routes())
+router.use('/home', homeRouter.routes())
 router.use('/user', userRouter.routes())
 
 router.get('/list', (ctx) => {

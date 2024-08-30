@@ -1,9 +1,9 @@
 const Router = require('koa-router')
 const router = new Router()
 
-router.get('/list', (ctx) => {
-  ctx.body = 'Home List'
-  // res.render('home', { msg: 'Home List' })
+router.get('/list', async (ctx) => {
+  // ctx.body = 'Home List'
+  await ctx.render('home', { msg: 'Home List' })
 })
 
 module.exports = router
