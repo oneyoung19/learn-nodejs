@@ -1,11 +1,16 @@
 const Koa = require('koa')
-const app = new Koa()
 const Router = require('koa-router')
+const static = require('koa-static')
+
+const app = new Koa()
 const port = 3000
 
 const router = new Router()
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
+
+// 相比express的静态托管 不支持自定义路径前缀
+app.use(static(__dirname + '/public'))
 
 app.use(async (ctx, next) => {
   console.log('logging 1')
