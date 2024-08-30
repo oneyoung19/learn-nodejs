@@ -8,7 +8,8 @@
 - [ ] （如果集群存在，那么在负载均衡的情况下，如何同步登录信息？）
 - [ ] TODO:?PM2为什么也能执行python脚本？除此以外，还有哪些可执行脚本？
 
-- [ ] `express` 洋葱模型
+- [ ] `express` 责任链模型
+- [ ] `koa` [洋葱模型](https://blog.xav1er.com/p/middleware-of-koa-and-express/)
 - [ ] 日志记录
 - [ ] 错误处理
 
