@@ -12,7 +12,8 @@
   "license": "ISC",
   "dependencies": {
     "egg": "^3.27.1",
-    "egg-view-ejs": "^3.0.0"
+    "egg-view-ejs": "^3.0.0",
+    "moment": "^2.30.1"
   },
   "devDependencies": {
     "egg-bin": "^6.10.0"
