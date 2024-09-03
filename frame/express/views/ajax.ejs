@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./template/meta.ejs', { title: 'AJAX' }) %>
+</head>
+<body>
+  AJAX EJS
+  <p>
+    <button id="btn-get">Ajax Get</button>
+  </p>
+  <p>
+    <button id="btn-post-urlencoded">Ajax Post Urlencoded</button>
+  </p>
+  <p>
+    <button id="btn-post-formdata">Ajax Post Formdata</button>
+  </p>
+  <p>
+    <button id="btn-post-json">Ajax Post Json</button>
+  </p>
+  <p>
+    <button id="btn-post-text">Ajax Post Text</button>
+  </p>
+  <p>
+    <button id="btn-post-raw">Ajax Post Raw</button>
+  </p>
+  <script src="https://unpkg.com/axios@1.7.7/dist/axios.min.js"></script>
+  <script>
+    const btnGet = document.getElementById('btn-get')
+    const btnPostUrlencoded = document.getElementById('btn-post-urlencoded')
+    const btnPostFormdata = document.getElementById('btn-post-formdata')
+    const btnPostJson = document.getElementById('btn-post-json')
+    const btnPostText = document.getElementById('btn-post-text')
+    const btnPostRaw = document.getElementById('btn-post-raw')
+
+    btnGet.addEventListener('click', async () => {
+      axios.get('/ajax/get?name=get').then(res => {
+        console.log(res)
+      })
+    })
+    btnPostUrlencoded.addEventListener('click', async () => {
+      axios.post('/ajax/post/urlencoded', 'name=urlencoded').then(res => {
+        console.log(res)
+      })
+    })
+    // FormData TODO:
+    // btnPostFormdata.addEventListener('click', async () => {
+    //   const formData = new FormData()
+    //   formData.append('name', 'Andy')
+    //   formData.append('age', 18)
+    //   axios.post('/ajax/post/formdata', formData).then(res => {
+    //     console.log(res)
+    //   })
+    // })
+    btnPostJson.addEventListener('click', async () => {
+      axios.post('/ajax/post/json', { name: 'json' }).then(res => {
+        console.log(res)
+      })
+    })
+    btnPostText.addEventListener('click', async () => {
+      axios.post('/ajax/post/text', 'text', {
+        headers: {
+          'Content-Type': 'text/plain'
+        }
+      }).then(res => {
+        console.log(res)
+      })
+    })
+
+    function stringToArrayBuffer(str) {
+      const encoder = new TextEncoder()
+      return encoder.encode(str).buffer
+    }
+    btnPostRaw.addEventListener('click', async () => {
+      const buffer = stringToArrayBuffer('HelloWorld')
+      axios.post('/ajax/post/raw', buffer, {
+        headers: {
+          'Content-Type': 'application/octet-stream'
+        }
+      }).then(res => {
+        console.log(res)
+      })
+    })
+  </script>
+</body>
+</html>

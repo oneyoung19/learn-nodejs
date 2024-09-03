@@ -7,8 +7,12 @@ const homeRouter = require('./router')
 const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
 
-// GET请求
-// POST请求 FormData JSON urlencoded
+// GET请求 req.query
+// POST请求 urlencoded FormData JSON
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.text())
+app.use(express.raw())
 
 // 静态资源托管
 app.use('/static', express.static('public'))
