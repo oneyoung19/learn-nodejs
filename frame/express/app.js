@@ -1,11 +1,20 @@
 const path = require('node:path')
 const express = require('express')
 const app = express()
+const session = require('express-session')
 const port = 3000
 
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
+const sessionRouter = require('./router/session')
+
+app.use(session({
+  name: 'express-session-cookie',
+  secret: 'your-secret-key',  // 用于加密 session ID 的密钥
+  resave: false,  // 是否强制保存 session 即使未修改
+  saveUninitialized: true  // 是否保存未初始化的 session
+}))
 
 // GET请求 req.query
 // POST请求 urlencoded FormData JSON
@@ -40,6 +49,7 @@ app.use((req, res, next) => {
 app.use('/', homeRouter)
 app.use('/user', userRouter)
 app.use('/ajax', ajaxRouter)
+app.use('/session', sessionRouter)
 
 app.get('/', (req, res) => {
   res.send('Got a GET request')

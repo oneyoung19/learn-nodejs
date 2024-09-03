@@ -80,7 +80,70 @@ app.post('/form-data', upload.none(), (req, res) => {
 })
 ```
 
-## 7.自定义中间件
+## 7.`cookie` & `session`
+
+`node-express-cookie`
+
+```js
+const cookieParser = require('cookie-parser')
+app.use(cookieParser())
+
+// 设置 Cookie
+app.get('/set-cookie', (req, res) => {
+  res.cookie('username', 'JohnDoe', { maxAge: 900000, httpOnly: true })
+  res.send('Cookie has been set')
+})
+
+// 获取 Cookie
+app.get('/get-cookie', (req, res) => {
+  const username = req.cookies.username
+  res.send(`Username from cookie: ${username}`)
+})
+
+// 清除 Cookie
+app.get('/clear-cookie', (req, res) => {
+  res.clearCookie('username')
+  res.send('Cookie has been cleared')
+})
+```
+
+`node-express-session`
+
+`session` 可以类比作 `vuex` 中带有 `id` 标识的全局 `store`。用来识别用户，并保持会话状态。
+
+```js
+const session = require('express-session')
+app.use(session({
+  name: 'express-session-cookie', // 设置 cookie 名称
+  secret: 'your-secret-key',  // 用于加密 session ID 的密钥
+  resave: false,  // 是否强制保存 session 即使未修改
+  saveUninitialized: true  // 是否保存未初始化的 session
+}))
+
+// 设置 Session
+app.get('/set-session', (req, res) => {
+  req.session.username = 'JohnDoe'
+  res.send('Session has been set')
+})
+
+// 获取 Session
+app.get('/get-session', (req, res) => {
+  const username = req.session.username
+  res.send(`Username from session: ${username}`)
+})
+
+// 销毁 Session
+app.get('/destroy-session', (req, res) => {
+  req.session.destroy(err => {
+    if (err) {
+      return res.send('Error destroying session')
+    }
+    res.send('Session has been destroyed')
+  })
+})
+```
+
+## 8.自定义中间件
 
 `node-express-middleware`
 
@@ -92,8 +155,12 @@ app.use('/', (req, res, next) => {
 })
 ```
 
-## 8.日志记录
+## 9.日志记录
 
-## 9.错误处理
+## 10.错误处理
 
-## 10.debug
+## 11.debug
+
+## 12.本地开发热更新
+
+## 13.文件上传
