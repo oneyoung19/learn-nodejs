@@ -5,6 +5,10 @@ const port = 3000
 
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
+const ajaxRouter = require('./router/ajax')
+
+// GET请求
+// POST请求 FormData JSON urlencoded
 
 // 静态资源托管
 app.use('/static', express.static('public'))
@@ -17,13 +21,21 @@ app.use((req, res, next) => {
   next()
   console.log('logging after')
 })
+
+app.use('/user', (req, res, next) => {
+  console.log('Middleware user')
+  next()
+})
+
 app.use((req, res, next) => {
   console.log('Ding')
   next()
 })
+
 // 注意此处中间件 放置在上面use中间件之后，那么上述中间件才会在此处路由下执行
 app.use('/', homeRouter)
 app.use('/user', userRouter)
+app.use('/ajax', ajaxRouter)
 
 app.get('/', (req, res) => {
   res.send('Got a GET request')
