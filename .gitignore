@@ -6,3 +6,4 @@ temp
 report.*.json
 *.pem
 dist
+logs
