@@ -161,6 +161,35 @@ app.use('/', (req, res, next) => {
 
 ## 11.debug
 
-## 12.本地开发热更新
+## 12.文件上传
 
-## 13.文件上传
+## 13.本地开发热更新
+
+`node-tool-nodemon`
+
+```json
+// package.json
+{
+  "scripts": {
+    "start": "nodemon"
+  }
+}
+// nodemon.json
+{
+  "watch": ["app.js", "router"],
+  "ignore": ["node_modules", "logs"],
+  "ext": "js,json",
+  "delay": "1000",
+  "exec": "node app.js",
+  "verbose": false,
+  "legacyWatch": true
+}
+```
+
+## 14.进程守护
+
+`node-tool-pm2`
+
+```json
+
+```
