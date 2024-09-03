@@ -42,15 +42,14 @@
         console.log(res)
       })
     })
-    // FormData TODO:
-    // btnPostFormdata.addEventListener('click', async () => {
-    //   const formData = new FormData()
-    //   formData.append('name', 'Andy')
-    //   formData.append('age', 18)
-    //   axios.post('/ajax/post/formdata', formData).then(res => {
-    //     console.log(res)
-    //   })
-    // })
+    btnPostFormdata.addEventListener('click', async () => {
+      const formData = new FormData()
+      formData.append('name', 'FormData')
+      formData.append('msg', 'Hello')
+      axios.post('/ajax/post/formdata', formData).then(res => {
+        console.log(res)
+      })
+    })
     btnPostJson.addEventListener('click', async () => {
       axios.post('/ajax/post/json', { name: 'json' }).then(res => {
         console.log(res)
