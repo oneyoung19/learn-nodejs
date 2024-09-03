@@ -55,20 +55,45 @@ app.set('views', path.join(__dirname, 'views'))
 
 ## 5.请求体处理
 
-## 6.自定义中间件
+`node-express-body`
+
+```js
+// application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }))
+// application/json
+app.use(express.json())
+// text-plain
+app.use(express.text())
+// application/octet-stream
+app.use(express.raw())
+```
+
+## 6.FormData处理
+
+`node-express-body-formData`
+
+```js
+const multer = require('multer')
+const upload = multer()
+app.post('/form-data', upload.none(), (req, res) => {
+  res.send(res.body)
+})
+```
+
+## 7.自定义中间件
 
 `node-express-middleware`
 
 ```js
-app.use((req, res, next) => {
+app.use('/', (req, res, next) => {
   console.log(`Middleware before`)
   next()
-  console.log(`Middleware before`)
+  console.log(`Middleware after`)
 })
 ```
 
-## 7.日志记录
+## 8.日志记录
 
-## 8.错误处理
+## 9.错误处理
 
-## 9.debug
+## 10.debug
