@@ -181,6 +181,31 @@ app.use(morgan('combined', {
 
 ## 10.错误处理
 
+`node-express-error`
+
+中间件捕获错误
+区分状态码
+代码执行错误（异步代码与同步代码 捕获的异同）
+和日志工具的结合
+
+```js
+app.use('/', (req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
+app.use((err, req, res, next) => {
+  const { name, status } = err
+  if (name === 'ValidationError') {
+    return res.status(400).send({ error: name })
+  }
+  if (status === 404) {
+    return res.status(404).send('Not Found')
+  }
+  res.status(500).send('Internal Server Error')
+})
+```
+
 ## 11.debug
 
 ## 12.文件上传

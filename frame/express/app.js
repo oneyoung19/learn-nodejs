@@ -70,12 +70,50 @@ app.use('/user', userRouter)
 app.use('/ajax', ajaxRouter)
 app.use('/session', sessionRouter)
 
-app.get('/', (req, res) => {
+app.get('/', (req, res, next) => {
   res.send('Got a GET request')
+})
+
+// 同步错误
+app.get('/error', (req, res, next) => {
+  const err = new Error('Validation Failed')
+  err.name = 'ValidationError'
+  err.details = {
+    name: 'Name is required',
+    email: 'Email is required'
+  }
+  err.status = 400
+  // throw err
+  return next(err)
+})
+
+// 异步错误 那么就使用try...catch结合next
+app.get('/error-async', async (req, res, next) => {
+  try {
+    await Promise.reject('Promise Reject Error——Not Found.')
+  } catch (err) {
+    return next(err)
+  }
 })
 
 app.post('/', (req, res) => {
   res.send('Got a POST request')
+})
+
+app.use('/', (req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
+})
+app.use((err, req, res, next) => {
+  const { name, status } = err
+  if (name === 'ValidationError') {
+    return res.status(400).send({ error: name })
+  }
+  if (status === 404) {
+    return res.status(404).send('Not Found')
+  }
+  res.status(500).send('Internal Server Error')
 })
 
 app.listen(port, () => {
