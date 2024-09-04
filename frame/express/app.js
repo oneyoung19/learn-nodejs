@@ -10,6 +10,7 @@ const homeRouter = require('./router')
 const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
 const sessionRouter = require('./router/session')
+const fileRouter = require('./router/file')
 
 // 创建日志文件写入流
 const fs = require('node:fs')
@@ -70,6 +71,7 @@ app.use('/', homeRouter)
 app.use('/user', userRouter)
 app.use('/ajax', ajaxRouter)
 app.use('/session', sessionRouter)
+app.use('/file', fileRouter)
 
 app.get('/', (req, res, next) => {
   debug(req.method + ' ' + req.url)
@@ -108,7 +110,8 @@ app.use('/', (req, res, next) => {
   next(error)
 })
 app.use((err, req, res, next) => {
-  const { name, status, log = false } = err
+  console.log(err)
+  const { name, status, log = true } = err
   if (log) {
     const errorDetails = `
       Error Message: ${err.message}

@@ -23,6 +23,12 @@
   <p>
     <button id="btn-post-raw">Ajax Post Raw</button>
   </p>
+  <p>
+    <input type="file" id="btn-file-upload">
+  </p>
+  <p>
+    <button id="btn-file-download">File Download</button>
+  </p>
   <script src="https://unpkg.com/axios@1.7.7/dist/axios.min.js"></script>
   <script>
     const btnGet = document.getElementById('btn-get')
@@ -31,6 +37,8 @@
     const btnPostJson = document.getElementById('btn-post-json')
     const btnPostText = document.getElementById('btn-post-text')
     const btnPostRaw = document.getElementById('btn-post-raw')
+    const btnFileUpload = document.getElementById('btn-file-upload')
+    const btnFileDownload = document.getElementById('btn-file-download')
 
     btnGet.addEventListener('click', async () => {
       axios.get('/ajax/get?name=get').then(res => {
@@ -78,6 +86,18 @@
       }).then(res => {
         console.log(res)
       })
+    })
+
+    btnFileUpload.addEventListener('change', async (e) => {
+      const { files } = e.target
+      if (files && files.length > 0) {
+        const file = files[0]
+        const formData = new FormData()
+        formData.append('file', file)
+        axios.post('/file/upload', formData).then(res => {
+          console.log(res)
+        })
+      }
     })
   </script>
 </body>

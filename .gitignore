@@ -7,3 +7,4 @@ report.*.json
 *.pem
 dist
 logs
+uploads
