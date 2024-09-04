@@ -225,14 +225,17 @@ app.use((err, req, res, next) => {
 const express = require('express')
 const router = express.Router()
 const fs = require('node:fs')
+const path = require('node:path')
+
 const multer = require('multer')
 const uploadDirname = 'uploads'
-if (!fs.existsSync(uploadDirname)) {
-  fs.mkdirSync(uploadDirname, { recursive: true })
+const uploadDir = path.resolve(__dirname, uploadDirname)
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true })
 }
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, uploadDirname)
+    cb(null, uploadDir)
   },
   filename: function (req, file, cb) {
     cb(null, `${Date.now()}-${file.originalname}`)
@@ -250,4 +253,28 @@ router.post('/upload', upload.single('file'), (req, res, next) => {
 })
 
 module.exports = router
+```
+
+## 12.文件下载
+
+`node-express-download`
+
+```js
+router.post('/download', (req, res) => {
+  const { filename } = req.body
+  const filePath = path.join(__dirname, '../uploads', filename)
+  // download方法会在响应头中添加Content-Disposition头
+  res.download(filePath, filename, (err) => {
+    if (err) {
+      console.error('File failed to download:', err)
+      res.status(500).send('Error downloading file')
+    }
+  })
+  // res.sendFile(filePath, (err) => {
+  //   if (err) {
+  //     console.error('File failed to send:', err)
+  //     res.status(500).send('Error sending file')
+  //   }
+  // })
+})
 ```

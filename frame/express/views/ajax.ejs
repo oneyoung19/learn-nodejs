@@ -99,6 +99,24 @@
         })
       }
     })
+    btnFileDownload.addEventListener('click', async () => {
+      axios.post('/file/download', {
+        filename: '1725430301360-1-1-Certificate of Incorporation.jpeg'
+      },{
+        responseType: 'blob'
+      }).then(res => {
+        console.log(res)
+        // const blob = new Blob([res.data])
+        const blob = res.data
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'file.jpeg'
+        a.click()
+        window.URL.revokeObjectURL(url)
+        a.remove()
+      })
+    })
   </script>
 </body>
 </html>
