@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const session = require('express-session')
 const morgan = require('morgan')
+const debug = require('debug')('http')
 const port = 3000
 
 const homeRouter = require('./router')
@@ -71,6 +72,7 @@ app.use('/ajax', ajaxRouter)
 app.use('/session', sessionRouter)
 
 app.get('/', (req, res, next) => {
+  debug(req.method + ' ' + req.url)
   res.send('Got a GET request')
 })
 

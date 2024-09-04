@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      debug:
+        specifier: ^4.3.6
+        version: 4.3.6(supports-color@5.5.0)
       express:
         specifier: ^4.19.2
         version: 4.19.2
