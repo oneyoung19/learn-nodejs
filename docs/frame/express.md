@@ -278,3 +278,19 @@ router.post('/download', (req, res) => {
   // })
 })
 ```
+
+## 13.跨域
+
+`node-express-cors`
+
+```js
+const cors = require('cors')
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}))
+```

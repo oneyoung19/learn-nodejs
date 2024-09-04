@@ -1,4 +1,4 @@
-## 12.debug
+## 1.debug
 
 `node-tool-debug`
 
@@ -7,7 +7,7 @@ const debug = require('debug')('app')
 debug('hello world')
 ```
 
-## 13.本地开发热更新
+## 2.本地开发热更新
 
 `node-tool-nodemon`
 
@@ -30,7 +30,7 @@ debug('hello world')
 }
 ```
 
-## 14.进程守护
+## 3.进程守护
 
 `node-tool-pm2`
 
