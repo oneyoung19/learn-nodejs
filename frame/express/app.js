@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 const session = require('express-session')
 const morgan = require('morgan')
+const chalk = require('chalk')
 const debug = require('debug')('http')
 const port = 3000
 
@@ -133,7 +134,7 @@ app.use((err, req, res, next) => {
 })
 
 app.listen(port, () => {
-  console.log(`Example app running on http://127.0.0.1:${port}`)
+  console.log(`Example app running on ${chalk.blue(`http://127.0.0.1:${port}`)}`)
 })
 
 /*
