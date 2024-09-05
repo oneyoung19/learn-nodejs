@@ -21,9 +21,11 @@ app.use(views(__dirname + '/views', {
 }))
 
 app.use(async (ctx, next) => {
-  console.log('logging 1')
+  console.log('Middleware before')
   await next()
+  console.log('Middleware after')
 })
+
 app.use(async (ctx, next) => {
   // 不使用koa-router的话 需要在此处手动判断path和method
   if (ctx.path === '/' && ctx.method === 'GET') {
