@@ -47,7 +47,7 @@ router.get('/list', (ctx) => {
 //   return
 // })
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log(`Example app running on http://127.0.0.1:${port}`)
 })
 

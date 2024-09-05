@@ -46,7 +46,7 @@ app.use('/static', express.static('public'))
 
 ## 4.模板引擎
 
-`node-express-view`
+`node-express-views`
 
 ```js
 app.set('view engine', 'ejs')
