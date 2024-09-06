@@ -9,6 +9,7 @@ const port = 3000
 const router = new Router()
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
+const ajaxRouter = require('./router/ajax')
 
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
@@ -21,6 +22,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 app.use(async (ctx, next) => {
+  console.log(ctx)
   console.log('Middleware before')
   await next()
   console.log('Middleware after')
@@ -37,6 +39,7 @@ app.use(async (ctx, next) => {
 app.use(router.routes())
 router.use('/home', homeRouter.routes())
 router.use('/user', userRouter.routes())
+router.use('/ajax', ajaxRouter.routes())
 
 router.get('/list', (ctx) => {
   console.log('logging list')
