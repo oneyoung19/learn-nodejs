@@ -30,7 +30,7 @@ const app = {
     promiseFn(ctx).then(_ => {
       console.log(`app listening on port ${port}`)
     }).catch(err => {
-      console.error(err)
+      console.error('err', err)
     })
   }
 }
@@ -43,6 +43,7 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx, next) => {
   console.log('middleware 2')
+  await Promise.reject('Reject err')
   await next()
   console.log('middleware 2 after')
 })

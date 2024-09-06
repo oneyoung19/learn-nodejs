@@ -3,7 +3,7 @@
   "ignore": ["node_modules", "logs"],
   "ext": "js,json",
   "delay": "1000",
-  "exec": "node app.js",
+  "exec": "node --inspect app.js",
   "verbose": false,
   "legacyWatch": true
 }

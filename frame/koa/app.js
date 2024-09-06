@@ -2,6 +2,7 @@ const Koa = require('koa')
 const Router = require('koa-router')
 const static = require('koa-static')
 const views = require('koa-views')
+const bodyParser = require('koa-bodyparser')
 
 const app = new Koa()
 const port = 3000
@@ -11,6 +12,17 @@ const homeRouter = require('./router')
 const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
 
+app.use(bodyParser({
+  // json/form/text/xml 不支持formData
+  enableTypes: ['json', 'form', 'text']
+}))
+app.use(async (ctx, next) => {
+  // the parsed body will store in ctx.request.body
+  // if nothing was parsed, body will be an empty object {}
+  console.log('ctx.request', ctx.request)
+  ctx.body = ctx.request.body
+  await next()
+})
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
 // Must be used before any router is used
@@ -39,7 +51,7 @@ app.use(async (ctx, next) => {
 app.use(router.routes())
 router.use('/home', homeRouter.routes())
 router.use('/user', userRouter.routes())
-router.use('/ajax', ajaxRouter.routes())
+router.use('/ajax', ajaxRouter.routes(), ajaxRouter.allowedMethods())
 
 router.get('/list', (ctx) => {
   console.log('logging list')
@@ -51,7 +63,7 @@ router.get('/list', (ctx) => {
 //   ctx.body = 'Hello Koa'
 //   return
 // })
-
+console.log('app', app)
 app.listen(port, () => {
   console.log(`Example app running on http://127.0.0.1:${port}`)
 })

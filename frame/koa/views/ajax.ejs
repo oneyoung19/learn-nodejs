@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('./template/meta.ejs', { title: 'AJAX' }) %>
+</head>
+<body>
+  AJAX EJS
+  <p>
+    <button id="btn-get">Ajax Get</button>
+  </p>
+  <p>
+    <button id="btn-post-urlencoded">Ajax Post Urlencoded</button>
+  </p>
+  <p>
+    <button id="btn-post-formdata">Ajax Post Formdata</button>
+  </p>
+  <p>
+    <button id="btn-post-json">Ajax Post Json</button>
+  </p>
+  <p>
+    <button id="btn-post-text">Ajax Post Text</button>
+  </p>
+  <p>
+    <button id="btn-post-raw">Ajax Post Raw</button>
+  </p>
+  <p>
+    <input type="file" id="btn-file-upload">
+  </p>
+  <p>
+    <button id="btn-file-download">File Download</button>
+  </p>
+  <script src="https://unpkg.com/axios@1.7.7/dist/axios.min.js"></script>
+  <script>
+    const btnGet = document.getElementById('btn-get')
+    const btnPostUrlencoded = document.getElementById('btn-post-urlencoded')
+    const btnPostFormdata = document.getElementById('btn-post-formdata')
+    const btnPostJson = document.getElementById('btn-post-json')
+    const btnPostText = document.getElementById('btn-post-text')
+    const btnPostRaw = document.getElementById('btn-post-raw')
+    const btnFileUpload = document.getElementById('btn-file-upload')
+    const btnFileDownload = document.getElementById('btn-file-download')
+
+    btnGet.addEventListener('click', async () => {
+      axios.get('/ajax/get?name=get').then(res => {
+        console.log(res)
+      })
+    })
+    btnPostUrlencoded.addEventListener('click', async () => {
+      axios.post('/ajax/post/urlencoded', 'name=urlencoded').then(res => {
+        console.log(res)
+      })
+    })
+    btnPostFormdata.addEventListener('click', async () => {
+      const formData = new FormData()
+      formData.append('name', 'FormData')
+      formData.append('msg', 'Hello')
+      axios.post('/ajax/post/formdata', formData).then(res => {
+        console.log(res)
+      })
+    })
+    btnPostJson.addEventListener('click', async () => {
+      axios.post('/ajax/post/json', { name: 'json' }).then(res => {
+        console.log(res)
+      })
+    })
+    btnPostText.addEventListener('click', async () => {
+      axios.post('/ajax/post/text', 'text', {
+        headers: {
+          'Content-Type': 'text/plain'
+        }
+      }).then(res => {
+        console.log(res)
+      })
+    })
+
+    function stringToArrayBuffer(str) {
+      const encoder = new TextEncoder()
+      return encoder.encode(str).buffer
+    }
+    btnPostRaw.addEventListener('click', async () => {
+      const buffer = stringToArrayBuffer('HelloWorld')
+      axios.post('/ajax/post/raw', buffer, {
+        headers: {
+          'Content-Type': 'application/octet-stream'
+        }
+      }).then(res => {
+        console.log(res)
+      })
+    })
+
+    btnFileUpload.addEventListener('change', async (e) => {
+      const { files } = e.target
+      if (files && files.length > 0) {
+        const file = files[0]
+        const formData = new FormData()
+        formData.append('file', file)
+        axios.post('/file/upload', formData).then(res => {
+          console.log(res)
+        })
+      }
+    })
+    btnFileDownload.addEventListener('click', async () => {
+      axios.post('/file/download', {
+        filename: '1725430301360-1-1-Certificate of Incorporation.jpeg'
+      },{
+        responseType: 'blob'
+      }).then(res => {
+        console.log(res)
+        // const blob = new Blob([res.data])
+        const blob = res.data
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = 'file.jpeg'
+        a.click()
+        window.URL.revokeObjectURL(url)
+        a.remove()
+      })
+    })
+  </script>
+</body>
+</html>
