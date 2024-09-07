@@ -78,8 +78,12 @@ app.use(bodyParser({
 }))
 ```
 
-## 6.请求体`formData`
+## 6.FormData处理
+
+`node-koa-body-formData`
+
 ## 7.`cookie` & `session`
+
 ## 8.自定义中间件
 
 `node-koa-middleware`

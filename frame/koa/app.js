@@ -16,13 +16,13 @@ app.use(bodyParser({
   // json/form/text/xml 不支持formData
   enableTypes: ['json', 'form', 'text']
 }))
-app.use(async (ctx, next) => {
-  // the parsed body will store in ctx.request.body
-  // if nothing was parsed, body will be an empty object {}
-  console.log('ctx.request', ctx.request)
-  ctx.body = ctx.request.body
-  await next()
-})
+// app.use(async (ctx, next) => {
+//   // the parsed body will store in ctx.request.body
+//   // if nothing was parsed, body will be an empty object {}
+//   console.log('ctx.request', ctx.request)
+//   ctx.body = ctx.request.body
+//   await next()
+// })
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
 // Must be used before any router is used

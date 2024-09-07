@@ -1,5 +1,7 @@
 const Router = require('koa-router')
 const router = new Router()
+const multer = require('koa-multer')
+const upload = multer()
 
 router.get('/', async (ctx, next) => {
   await ctx.render('ajax')
@@ -19,8 +21,8 @@ router.post('/post/urlencoded', async (ctx, next) => {
 })
 
 // formdata
-router.post('/post/formdata', async (ctx, next) => {
-  // await next()
+router.post('/post/formdata', upload.none(), async (ctx, next) => {
+  console.log('formdata', ctx)
   ctx.body = ctx.request.body
 })
 
