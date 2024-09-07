@@ -1,3 +1,7 @@
+1. `koa`
+2. `koa-compose`
+3. `koa-router`
+
 ## 1.启动服务
 
 `node-koa`
@@ -63,6 +67,17 @@ app.use(views(__dirname + '/views', {
 ```
 
 ## 5.请求体处理
+
+`node-koa-body`
+
+```js
+const bodyParser = require('koa-bodyparser')
+app.use(bodyParser({
+  // ctx.request.body
+  enableTypes: ['json', 'form', 'text']
+}))
+```
+
 ## 6.请求体`formData`
 ## 7.`cookie` & `session`
 ## 8.自定义中间件
