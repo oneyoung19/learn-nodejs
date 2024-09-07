@@ -11,6 +11,7 @@ const router = new Router()
 const homeRouter = require('./router')
 const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
+const fileRouter = require('./router/file')
 
 app.use(bodyParser({
   // json/form/text/xml 不支持formData
@@ -34,10 +35,10 @@ app.use(views(__dirname + '/views', {
 }))
 
 app.use(async (ctx, next) => {
-  console.log(ctx)
-  console.log('Middleware before')
+  // console.log(ctx)
+  // console.log('Middleware before')
   await next()
-  console.log('Middleware after')
+  // console.log('Middleware after')
 })
 
 app.use(async (ctx, next) => {
@@ -52,6 +53,7 @@ app.use(router.routes())
 router.use('/home', homeRouter.routes())
 router.use('/user', userRouter.routes())
 router.use('/ajax', ajaxRouter.routes(), ajaxRouter.allowedMethods())
+router.use('/file', fileRouter.routes())
 
 router.get('/list', (ctx) => {
   console.log('logging list')

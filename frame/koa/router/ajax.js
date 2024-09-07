@@ -1,6 +1,6 @@
 const Router = require('koa-router')
 const router = new Router()
-const multer = require('koa-multer')
+const multer = require('@koa/multer')
 const upload = multer()
 
 router.get('/', async (ctx, next) => {
