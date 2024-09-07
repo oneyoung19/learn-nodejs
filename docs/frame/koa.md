@@ -82,6 +82,15 @@ app.use(bodyParser({
 
 `node-koa-body-formData`
 
+```js
+const multer = require('@koa/multer')
+const upload = multer()
+
+app.post('/form-data', upload.none(), async (ctx, next) => {
+  ctx.body = ctx.request.body
+})
+```
+
 ## 7.`cookie` & `session`
 
 ## 8.自定义中间件
@@ -99,4 +108,57 @@ app.use(async (ctx, next) => {
 ## 9.日志记录
 ## 10.错误处理
 ## 11.**文件上传**
-## 12.跨域
+
+`node-koa-upload`
+
+```js
+const Router = require('koa-router')
+const router = new Router()
+const fs = require('node:fs')
+const path = require('node:path')
+
+const multer = require('@koa/multer')
+const uploadDirname = 'uploads'
+const uploadDir = path.resolve(__dirname, uploadDirname)
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir, { recursive: true })
+}
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadDir)
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${Date.now()}-${file.originalname}`)
+  }
+})
+const upload = multer({ storage: storage })
+
+router.post('/upload', upload.single('file'), async (ctx, next) => {
+  console.log('file', ctx.request.file, ctx.file)
+  try {
+    ctx.body = 'File uploaded successfully!'
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
+
+module.exports = router
+```
+
+## 12.文件下载
+
+`node-koa-download`
+
+```js
+router.post('/download', async (ctx) => {
+  const { filename } = ctx.request.body
+  const filePath = path.join(__dirname, 'uploads', filename)
+
+  ctx.set('Content-Disposition', `attachment; filename=${filename}`)
+  ctx.set('Content-Type', 'application/octet-stream')
+  ctx.body = fs.createReadStream(filePath)
+})
+```
+
+## 13.跨域

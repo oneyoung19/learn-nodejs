@@ -33,15 +33,19 @@ router.post('/upload', upload.single('file'), async (ctx, next) => {
 
 router.post('/download', async (ctx) => {
   const { filename } = ctx.request.body
-  const filePath = path.join(__dirname, '../uploads', filename)
-  
-  res.download(filePath, filename, (err) => {
-    if (err) {
-      console.error('File failed to download:', err)
-      ctx.status = 500
-      ctx.body = 'Error downloading file'
-    }
-  })
+  const filePath = path.join(__dirname, 'uploads', filename)
+
+  ctx.set('Content-Disposition', `attachment; filename=${filename}`)
+  ctx.set('Content-Type', 'application/octet-stream')
+  ctx.body = fs.createReadStream(filePath)
+
+  // ctx.res.download(filePath, filename, (err) => {
+  //   if (err) {
+  //     console.error('File failed to download:', err)
+  //     ctx.status = 500
+  //     ctx.body = 'Error downloading file'
+  //   }
+  // })
   // res.sendFile(filePath, (err) => {
   //   if (err) {
   //     console.error('File failed to send:', err)

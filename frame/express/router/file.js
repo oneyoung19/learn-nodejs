@@ -31,7 +31,7 @@ router.post('/upload', upload.single('file'), (req, res, next) => {
 router.post('/download', (req, res) => {
   const { filename } = req.body
   const filePath = path.join(__dirname, '../uploads', filename)
-  
+  // express中提供了download和sendFile方法
   res.download(filePath, filename, (err) => {
     if (err) {
       console.error('File failed to download:', err)
