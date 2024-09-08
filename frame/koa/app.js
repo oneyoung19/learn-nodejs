@@ -4,6 +4,7 @@ const static = require('koa-static')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
+const cors = require('@koa/cors')
 
 const app = new Koa()
 const port = 3000
@@ -14,6 +15,13 @@ const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
 const fileRouter = require('./router/file')
 
+app.use(cors({
+  origin: '*',
+  allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  maxAge: 86400
+}))
 app.use(bodyParser({
   // json/form/text/xml 不支持formData
   enableTypes: ['json', 'form', 'text']
