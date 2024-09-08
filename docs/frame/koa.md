@@ -93,6 +93,23 @@ app.post('/form-data', upload.none(), async (ctx, next) => {
 
 ## 7.`cookie` & `session`
 
+`node-koa-cookie`
+
+```js
+app.keys = ['some secret hurr']
+
+// 中间件
+app.use(async (ctx, next) => {
+  ctx.cookies.set('name', 'koa_signed', { signed: true })
+  await next()
+})
+```
+
+`node-koa-session`
+
+```js
+```
+
 ## 8.自定义中间件
 
 `node-koa-middleware`

@@ -24,6 +24,19 @@ app.use(bodyParser({
 //   ctx.body = ctx.request.body
 //   await next()
 // })
+
+app.keys = ['some secret hurr']
+
+// 中间件
+app.use(async (ctx, next) => {
+  console.log('ctx.cookies', ctx.cookies)
+  // 设置签名的 cookie
+  ctx.cookies.set('name', 'koa_signed', { signed: true })
+  // 获取签名的 cookie
+  // const cookie = ctx.cookies.get('name', { signed: true })
+  // ctx.body = `Signed cookie set with value: ${cookie}`
+  await next()
+})
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
 // Must be used before any router is used
