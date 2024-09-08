@@ -3,6 +3,7 @@ const Router = require('koa-router')
 const static = require('koa-static')
 const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
+const session = require('koa-session')
 
 const app = new Koa()
 const port = 3000
@@ -27,7 +28,7 @@ app.use(bodyParser({
 
 app.keys = ['some secret hurr']
 
-// 中间件
+// cookie中间件
 app.use(async (ctx, next) => {
   console.log('ctx.cookies', ctx.cookies)
   // 设置签名的 cookie
@@ -36,6 +37,31 @@ app.use(async (ctx, next) => {
   // const cookie = ctx.cookies.get('name', { signed: true })
   // ctx.body = `Signed cookie set with value: ${cookie}`
   await next()
+})
+// session中间件
+const CONFIG = {
+  key: 'koa.sess', /** (string) cookie key (default is koa.sess) */
+  /** (number || 'session') maxAge in ms (default is 1 days) */
+  /** 'session' will result in a cookie that expires when session/browser is closed */
+  /** Warning: If a session cookie is stolen, this cookie will never expire */
+  maxAge: 86400000,
+  autoCommit: true, /** (boolean) automatically commit headers (default true) */
+  overwrite: true, /** (boolean) can overwrite or not (default true) */
+  httpOnly: true, /** (boolean) httpOnly or not (default true) */
+  signed: true, /** (boolean) signed or not (default true) */
+  rolling: false, /** (boolean) Force a session identifier cookie to be set on every response. The expiration is reset to the original maxAge, resetting the expiration countdown. (default is false) */
+  renew: false, /** (boolean) renew session when session is nearly expired, so we can always keep user logged in. (default is false)*/
+  secure: false, /** (boolean) secure cookie*/
+  sameSite: null, /** (string) session cookie sameSite options (default null, don't set it) */
+}
+app.use(session(CONFIG, app))
+app.use(ctx => {
+  // ignore favicon
+  if (ctx.path === '/favicon.ico') return
+
+  let n = ctx.session.views || 0
+  ctx.session.views = ++n
+  ctx.body = n + ' views'
 })
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
