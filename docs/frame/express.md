@@ -160,7 +160,7 @@ app.use('/', (req, res, next) => {
 `node-express-logger`
 
 ```js
-// 创建日志文件写入流
+const morgan = require('morgan')
 const fs = require('node:fs')
 const path = require('node:path')
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' })

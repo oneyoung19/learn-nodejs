@@ -1,3 +1,5 @@
+const fs = require('node:fs')
+const path = require('node:path')
 const Koa = require('koa')
 const Router = require('koa-router')
 const static = require('koa-static')
@@ -5,6 +7,7 @@ const views = require('koa-views')
 const bodyParser = require('koa-bodyparser')
 const session = require('koa-session')
 const cors = require('@koa/cors')
+const logger = require('koa-logger')
 
 const app = new Koa()
 const port = 3000
@@ -22,6 +25,28 @@ app.use(cors({
   credentials: true,
   maxAge: 86400
 }))
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'access.log'), 
+  { flags: 'a' }
+)
+const errorLogStream = fs.createWriteStream(
+  path.join(__dirname, 'error.log'), 
+  { flags: 'a' }
+)
+// 创建正则表达式移除 ANSI 颜色转义码
+const stripAnsi = (str) => str.replace(
+  /[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
+)
+app.use(logger((str, args) => {
+  const status = args[3] // args[3] 是响应的状态码
+  const cleanStr = stripAnsi(str)
+  if (status >= 400) {
+    errorLogStream.write(`${cleanStr}\n`)
+  } else {
+    accessLogStream.write(`${cleanStr}\n`)
+  }
+}))
+
 app.use(bodyParser({
   // json/form/text/xml 不支持formData
   enableTypes: ['json', 'form', 'text']
@@ -38,7 +63,7 @@ app.keys = ['some secret hurr']
 
 // cookie中间件
 app.use(async (ctx, next) => {
-  console.log('ctx.cookies', ctx.cookies)
+  // console.log('ctx.cookies', ctx.cookies)
   // 设置签名的 cookie
   ctx.cookies.set('name', 'koa_signed', { signed: true })
   // 获取签名的 cookie
@@ -63,14 +88,14 @@ const CONFIG = {
   sameSite: null, /** (string) session cookie sameSite options (default null, don't set it) */
 }
 app.use(session(CONFIG, app))
-app.use(ctx => {
-  // ignore favicon
-  if (ctx.path === '/favicon.ico') return
+// app.use(ctx => {
+//   // ignore favicon
+//   if (ctx.path === '/favicon.ico') return
 
-  let n = ctx.session.views || 0
-  ctx.session.views = ++n
-  ctx.body = n + ' views'
-})
+//   let n = ctx.session.views || 0
+//   ctx.session.views = ++n
+//   ctx.body = n + ' views'
+// })
 // 相比express的静态托管 不支持自定义路径前缀
 app.use(static(__dirname + '/public'))
 // Must be used before any router is used
@@ -82,7 +107,7 @@ app.use(views(__dirname + '/views', {
 }))
 
 app.use(async (ctx, next) => {
-  console.log(ctx)
+  // console.log(ctx)
   // console.log('Middleware before')
   await next()
   // console.log('Middleware after')
