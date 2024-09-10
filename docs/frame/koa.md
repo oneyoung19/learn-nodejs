@@ -72,6 +72,7 @@ app.use(views(__dirname + '/views', {
 
 ```js
 const bodyParser = require('koa-bodyparser')
+
 app.use(bodyParser({
   // ctx.request.body
   enableTypes: ['json', 'form', 'text']
