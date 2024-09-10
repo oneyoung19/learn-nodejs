@@ -151,7 +151,58 @@ app.use(async (ctx, next) => {
 ```
 
 ## 9.日志记录
+
+`node-koa-logger`
+
+```js
+const logger = require('koa-logger')
+
+const accessLogStream = fs.createWriteStream(
+  path.join(__dirname, 'logs/access.log'), 
+  { flags: 'a' }
+)
+const errorLogStream = fs.createWriteStream(
+  path.join(__dirname, 'logs/error.log'), 
+  { flags: 'a' }
+)
+// 创建正则表达式移除 ANSI 颜色转义码
+const stripAnsi = (str) => str.replace(
+  /[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
+)
+app.use(logger((str, args) => {
+  const status = args[3]
+  const cleanStr = stripAnsi(str)
+  if (status >= 400) {
+    errorLogStream.write(`${cleanStr}\n`)
+  } else {
+    accessLogStream.write(`${cleanStr}\n`)
+  }
+}))
+```
+
 ## 10.错误处理
+
+`node-koa-error`
+
+```js
+// 由于是洋葱模型 因此使用try...catch在中间件链开始时捕获next()执行错误
+app.use(async (ctx, next) => {
+  try {
+    await next()
+    // koa默认会将statusCode设置为了404 而不是异常错误
+    if (ctx.status === 404) {
+      ctx.status = 404
+      ctx.body = 'Resource Not Found'
+    }
+  } catch (err) {
+    ctx.status = err.status || 500
+    ctx.body = {
+      message: err.message || 'Internal Server Error'
+    }
+  }
+})
+```
+
 ## 11.**文件上传**
 
 `node-koa-upload`

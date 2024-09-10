@@ -18,6 +18,23 @@ const userRouter = require('./router/user')
 const ajaxRouter = require('./router/ajax')
 const fileRouter = require('./router/file')
 
+// 由于是洋葱模型 因此使用try...catch在中间件链开始时捕获next()执行错误
+app.use(async (ctx, next) => {
+  try {
+    await next()
+    // koa默认会将statusCode设置为了404 而不是异常错误
+    if (ctx.status === 404) {
+      ctx.status = 404
+      ctx.body = 'Resource Not Found'
+    }
+  } catch (err) {
+    ctx.status = err.status || 500
+    ctx.body = {
+      message: err.message || 'Internal Server Error'
+    }
+  }
+})
+
 app.use(cors({
   origin: '*',
   allowMethods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -26,11 +43,11 @@ app.use(cors({
   maxAge: 86400
 }))
 const accessLogStream = fs.createWriteStream(
-  path.join(__dirname, 'access.log'), 
+  path.join(__dirname, 'logs/access.log'), 
   { flags: 'a' }
 )
 const errorLogStream = fs.createWriteStream(
-  path.join(__dirname, 'error.log'), 
+  path.join(__dirname, 'logs/error.log'), 
   { flags: 'a' }
 )
 // 创建正则表达式移除 ANSI 颜色转义码
@@ -38,7 +55,7 @@ const stripAnsi = (str) => str.replace(
   /[\u001b\u009b][[\]()#;?]*(?:[0-9]{1,4}(?:;[0-9]{0,4})*)?[0-9A-ORZcf-nqry=><]/g, ''
 )
 app.use(logger((str, args) => {
-  const status = args[3] // args[3] 是响应的状态码
+  const status = args[3]
   const cleanStr = stripAnsi(str)
   if (status >= 400) {
     errorLogStream.write(`${cleanStr}\n`)

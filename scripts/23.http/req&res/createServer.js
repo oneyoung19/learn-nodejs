@@ -5,7 +5,8 @@ const http = require('node:http')
 const server = http.createServer((req, res) => {
   console.log(req)
   console.log(res)
-  res.end('Hello World')
+  res.statusCode = 404
+  res.end(String(404))
 })
 
-server.listen(3000)
+server.listen(3300)
