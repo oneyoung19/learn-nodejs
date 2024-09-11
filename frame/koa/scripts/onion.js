@@ -1,3 +1,4 @@
+// https://blog.xav1er.com/p/middleware-of-koa-and-express/
 const app = {
   middlewares: [],
   use (fn) {
@@ -43,9 +44,20 @@ app.use(async (ctx, next) => {
 
 app.use(async (ctx, next) => {
   console.log('middleware 2')
-  await Promise.reject('Reject err')
+  // await Promise.reject('Reject err')
   await next()
   console.log('middleware 2 after')
+})
+
+app.use(async (ctx, next) => {
+  console.log('async')
+  await next()
+  await new Promise((resolve) => {
+    setTimeout(() => {
+      console.log('async end in 3s')
+      resolve()
+    }, 3000)
+  })
 })
 
 app.use(async (ctx, next) => {
