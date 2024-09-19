@@ -175,9 +175,9 @@ const parseCookies = (cookieHeader) => {
   cookieHeader.split(';').forEach(cookie => {
     const [name, ...rest] = cookie.split('=')
     cookies[name.trim()] = decodeURIComponent(rest.join('='))
-  });
+  })
   return cookies
-};
+}
 
 const server = http.createServer((req, res) => {
   const cookies = parseCookies(req.headers.cookie)
@@ -416,7 +416,6 @@ const server = http.createServer((req, res) => {
     return
   }
 
-  // 处理实际的请求
   if (req.method === 'GET') {
     res.writeHead(200, { 'Content-Type': 'text/plain' })
     res.end('Hello, world')
