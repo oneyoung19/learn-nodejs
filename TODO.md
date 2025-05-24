@@ -2,7 +2,7 @@
 
 - [ ] `node` 服务添加 `traceId`
 - [ ] `zipkin` 全链路追踪
-- [ ] `timers API` 以及 `Event Loop`
+- [x] `timers API` 以及 `Event Loop`
 - [ ] `test runner API` 及 `mocha`、`jest` 等测试框架
 - [x] `EventEmitter API`
 - [x] `cluster` 集群
